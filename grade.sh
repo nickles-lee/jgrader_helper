@@ -27,6 +27,15 @@ while getopts "i:t:" opt; do
    esac
 done
 
+#Exit on no valid source file
+if [[ -e $FIN_TEST_INPUT ]]
+  then
+    :
+  else
+    echo "++++===NO SOURCE FILE PROVIDED===++++"
+    exit
+  fi
+
 echo "+++++===File Contents===+++++"
 #Print source file contents to screen
 cat "$SRC_FILE"
