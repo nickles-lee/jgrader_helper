@@ -10,6 +10,7 @@
 
 #Set default test case input file path
 FIN_TEST_INPUT="./testcase.txt"
+FIN_TEST_INPUT2="./testcase2.txt"
 
 #Set source input file path
 #No error handling for no source file provided :P
@@ -28,7 +29,7 @@ while getopts "i:t:" opt; do
 done
 
 #Exit on no valid source file
-if [[ -e $FIN_TEST_INPUT ]]
+if [[ -e $SRC_FILE ]]
   then
     :
   else
@@ -52,3 +53,7 @@ if [[ -e $FIN_TEST_INPUT ]]
     echo "++++===NO TEST CASE PROVIDED===++++"
   	python3 "$SRC_FILE"
   fi
+if [[ -e $FIN_TEST_INPUT2 ]]
+   then
+    cat "$FIN_TEST_INPUT2" | python3 "$SRC_FILE"
+fi
