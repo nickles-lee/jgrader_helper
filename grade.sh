@@ -16,15 +16,21 @@ FIN_TEST_INPUT2="./testcase2.txt"
 #No error handling for no source file provided :P
 SRC_FILE=$1
 
+#Set language to grade 
+LANG="python"
+
 #Loop to gather commmand line args (e.g. -i inputfile.py, -t testcase.txt)
-while getopts "i:t:" opt; do
+while getopts "i:t:l:" opt; do
   case $opt in
     i)
       SRC_FILE="$OPTARG"
       ;;
     t)
       FIN_TEST_INPUT="$OPTARG"
-    ;;
+      ;;
+    l)
+      LANG="$OPTARG"
+      ;;
    esac
 done
 
@@ -37,23 +43,56 @@ if [[ -e $SRC_FILE ]]
     exit
   fi
 
-echo "+++++===File Contents===+++++"
+#Exit on unsupporte dlang
+if [ "python" == $LANG ] || [ "c" == "$LANG" ]
+  then
+   :
+  else
+   echo "++++===Invalid language specified===++++"
+   exit
+  fi
+
+echo -e "\n+++++===File Contents===+++++"
+echo "$SRC_FILE"
 #Print source file contents to screen
 cat "$SRC_FILE"
 
 
 echo "+++++===Program Output===+++++"
 #If test case file exists (default or provided)
+
+if [[ "$LANG" == "c" ]]
+  then
+    #echo "+++++===COMPILER WARNINGS===+++++"
+    gcc -o binary "$SRC_FILE"
+  else
+    :
+  fi
+
+
 if [[ -e $FIN_TEST_INPUT ]]
   then
     #Pipe file into file running in python environment
-    cat "$FIN_TEST_INPUT" | python3 "$SRC_FILE"
+    if [[ "$LANG" == "python" ]]
+      then cat "$FIN_TEST_INPUT" | python3 "$SRC_FILE"
+    elif [[ "$LANG" == "c" ]]
+      then cat "$FIN_TEST_INPUT" | ./"binary"
+    fi
   else
     #Otherwise run without piped input (interactive)
     echo "++++===NO TEST CASE PROVIDED===++++"
-  	python3 "$SRC_FILE"
+    if [[ "$LANG" == "python" ]]
+      then echo "$LANG"; python3 "$SRC_FILE"
+    elif [[ "$LANG" == "c" ]]
+      then ./"binary"
+    fi
   fi
+  
 if [[ -e $FIN_TEST_INPUT2 ]]
    then
-    cat "$FIN_TEST_INPUT2" | python3 "$SRC_FILE"
+   if [[ "$LANG" == "python" ]]
+   	then cat "$FIN_TEST_INPUT2" | python3 "$SRC_FILE"
+   elif [[ "$LANG" == "c" ]]
+   	then cat "$FIN_TEST_INPUT2" | ./"binary"
+   fi
 fi
