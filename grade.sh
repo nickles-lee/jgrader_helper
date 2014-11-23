@@ -16,12 +16,18 @@ FIN_TEST_INPUT2="./testcase2.txt"
 #No error handling for no source file provided :P
 SRC_FILE=$1
 
+#Disable Automated Tests
+NO_TEST=0
+
 #Set language to grade 
 LANG="python"
 
 #Loop to gather commmand line args (e.g. -i inputfile.py, -t testcase.txt)
-while getopts "i:t:l:" opt; do
+while getopts "si:t:l:" opt; do
   case $opt in
+    s)
+      NO_TEST=1
+      ;;
     i)
       SRC_FILE="$OPTARG"
       ;;
@@ -57,6 +63,10 @@ echo "$SRC_FILE"
 #Print source file contents to screen
 cat "$SRC_FILE"
 
+if [[ "$NO_TEST" -eq 1 ]]
+  then
+    exit
+  fi
 
 echo "+++++===Program Output===+++++"
 #If test case file exists (default or provided)
