@@ -11,6 +11,11 @@
 #Set default test case input file path
 FIN_TEST_INPUT="./testcase.txt"
 FIN_TEST_INPUT2="./testcase2.txt"
+FIN_TEST_INPUT3="./testcase3.txt"
+FIN_TEST_INPUT4="./testcase4.txt"
+FIN_TEST_INPUT5="./testcase5.txt"
+
+
 
 #Set source input file path
 #No error handling for no source file provided :P
@@ -104,5 +109,41 @@ if [[ -e $FIN_TEST_INPUT2 ]]
    	then cat "$FIN_TEST_INPUT2" | python3 "$SRC_FILE"
    elif [[ "$LANG" == "c" ]]
    	then cat "$FIN_TEST_INPUT2" | ./"binary"
+   fi
+fi
+
+if [[ -e $FIN_TEST_INPUT3 ]]
+   then
+   if [[ "$LANG" == "python" ]]
+    then cat "$FIN_TEST_INPUT3" | python3 "$SRC_FILE"
+   elif [[ "$LANG" == "c" ]]
+    then cat "$FIN_TEST_INPUT3" | ./"binary"
+   fi
+fi
+
+if [[ -e $FIN_TEST_INPUT4 ]]
+   then
+   if [[ "$LANG" == "python" ]]
+    then cat "$FIN_TEST_INPUT4" | python3 "$SRC_FILE"
+   elif [[ "$LANG" == "c" ]]
+    then cat "$FIN_TEST_INPUT4" | ./"binary"
+   fi
+fi
+
+if [[ -e $FIN_TEST_INPUT5 ]]
+   then
+   if [[ "$LANG" == "python" ]]
+    then cat "$FIN_TEST_INPUT5" | python3 "$SRC_FILE"
+   elif [[ "$LANG" == "c" ]]
+    then cat "$FIN_TEST_INPUT5" | ./"binary"
+   fi
+fi
+
+if [[ -e $FIN_TEST_INPUT6 ]]
+   then
+   if [[ "$LANG" == "python" ]]
+    then cat "$FIN_TEST_INPUT6" | python3 "$SRC_FILE"
+   elif [[ "$LANG" == "c" ]]
+    then cat "$FIN_TEST_INPUT6" | ./"binary"
    fi
 fi
